@@ -8,6 +8,17 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular": {
+          "component": {
+            "skipTests": true
+          },
+          "service": {
+            "skipTests": true
+          },
+          "directive": {
+            "skipTests": true
+          }
         }
       },
       "root": "",
