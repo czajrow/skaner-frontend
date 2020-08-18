@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './settings.component';
+import {SectionModule} from '../../shared/section/section.module';
 
 
 
@@ -10,7 +11,8 @@ import { SettingsComponent } from './settings.component';
         SettingsComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        SectionModule
     ]
 })
 export class SettingsModule { }
