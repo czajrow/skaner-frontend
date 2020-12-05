@@ -3,6 +3,7 @@ import { ScanningStatus } from './scanning.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface ScanViewModel {
+  id: string;
   name: string;
   createDate: string;
   status: ScanningStatus;
@@ -19,6 +20,7 @@ export class ScansService {
 
   constructor() {
     this.scans.push({
+      id: '0',
       name: 'Name',
       createDate: new Date().toDateString(),
       status: ScanningStatus.Done,
@@ -28,6 +30,7 @@ export class ScansService {
 
   public addScan(name: string): void {
     this.scans.push({
+      id: this.scans.length.toString(),
       name,
       createDate: new Date().toDateString(),
       status: ScanningStatus.NotConnected,

@@ -20,24 +20,14 @@ export class SidebarComponent implements OnInit {
 
   readonly items: SidebarItem[] = [
     {
-      title: 'Home',
-      link: '/home',
-      icon: 'home',
-    },
-    {
-      title: 'Scanning',
-      link: '/scanning',
-      icon: 'scanning',
-    },
-    {
       title: 'Scans',
       link: '/scans',
       icon: 'scans',
     },
     {
-      title: 'Settings',
-      link: '/settings',
-      icon: 'settings'
+      title: 'Scanning',
+      link: '/scanning',
+      icon: 'scanning',
     },
   ];
 
