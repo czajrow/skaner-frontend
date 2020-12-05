@@ -30,6 +30,11 @@ export class SidebarComponent implements OnInit {
       icon: 'scanning',
     },
     {
+      title: 'Scans',
+      link: '/scans',
+      icon: 'scans',
+    },
+    {
       title: 'Settings',
       link: '/settings',
       icon: 'settings'

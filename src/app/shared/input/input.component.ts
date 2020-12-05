@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const NOOP = () => {};
@@ -25,7 +25,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string;
   @Input() help: string;
 
-  private _propagateChange: (val: any) => void = NOOP;
+  public _propagateChange: (val: any) => void = NOOP;
   private _propagateTouch: (val: any) => void = NOOP;
   public _isDisabled: boolean;
   public _value: any;
@@ -46,4 +46,9 @@ export class InputComponent implements ControlValueAccessor {
     this._value = obj;
   }
 
+  onChange(event): void {
+    console.log(event);
+    console.log(this._value);
+    console.log(this._propagateChange);
+  }
 }
