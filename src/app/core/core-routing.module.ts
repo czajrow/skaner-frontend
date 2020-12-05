@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('@/pages/settings-page/settings-page.module').then(m => m.SettingsPageModule),
   },
   {
+    path: 'scanning',
+    loadChildren: () => import('@/pages/scanning-page/scanning-page.module').then(m => m.ScanningPageModule),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   }

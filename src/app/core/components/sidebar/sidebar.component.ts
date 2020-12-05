@@ -20,6 +20,11 @@ export class SidebarComponent implements OnInit {
       icon: 'home',
     },
     {
+      title: 'Scanning',
+      link: '/scanning',
+      icon: 'scanning',
+    },
+    {
       title: 'Settings',
       link: '/settings',
       icon: 'settings'
