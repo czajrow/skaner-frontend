@@ -12,18 +12,13 @@ export enum StatusOfConnection {
 })
 export class StatusService {
 
-  private readonly statusSubject: BehaviorSubject<StatusOfConnection> = new BehaviorSubject<StatusOfConnection>(StatusOfConnection.Offline);
+  private readonly statusSubject: BehaviorSubject<StatusOfConnection> = new BehaviorSubject<StatusOfConnection>(StatusOfConnection.Connected);
   public status$: Observable<StatusOfConnection> = this.statusSubject.asObservable();
 
   constructor() {
-    interval(2000).subscribe(count => {
-      if (count % 3 === 0) {
-        this.statusSubject.next(StatusOfConnection.Connected);
-      } else if (count % 3 === 1) {
-        this.statusSubject.next(StatusOfConnection.Scanning);
-      } else {
-        this.statusSubject.next(StatusOfConnection.Offline);
-      }
-    });
+  }
+
+  public setStatus(statusOfConnection: StatusOfConnection): void {
+    this.statusSubject.next(statusOfConnection);
   }
 }

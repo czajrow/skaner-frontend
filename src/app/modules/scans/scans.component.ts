@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScansService } from '../../core/services/scans.service';
 
 @Component({
   selector: 'app-scans',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScansComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public readonly _scansService: ScansService,
+  ) { }
 
   ngOnInit(): void {
   }

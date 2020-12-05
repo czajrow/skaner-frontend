@@ -1,1 +1,18 @@
-<p>scan-container works!</p>
+<app-section
+  (click)="onClick()"
+  class="app-scan-container mb-4"
+>
+  <div app-section-header-slot>
+    {{ _scan.name }} ({{ _status }})
+  </div>
+  <div
+    *ngIf="_isInProgress"
+    app-section-content-slot
+  >
+    <progress
+      [value]="_scanningService.progress$ | async"
+      max="1.0"
+      class="w-100"
+    ></progress>
+  </div>
+</app-section>

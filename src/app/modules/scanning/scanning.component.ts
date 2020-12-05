@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { ScanningService } from '../../core/services/scanning.service';
+import { ScansService } from '../../core/services/scans.service';
+import { StatusOfConnection, StatusService } from '../../core/services/status.service';
 
 @Component({
   selector: 'app-scanning',
@@ -10,11 +13,14 @@ import { debounceTime } from 'rxjs/operators';
 export class ScanningComponent implements OnInit {
 
   public _errors: Set<string> = new Set<string>();
-
   public _formGroup: FormGroup;
+  public _statusOfConnection = StatusOfConnection;
 
   constructor(
+    public readonly _statusService: StatusService,
     private readonly _formBuilder: FormBuilder,
+    private readonly _scansService: ScansService,
+    private readonly _scanningService: ScanningService,
   ) {
     this._formGroup = this._formBuilder.group({
       name: [null, Validators.required],
@@ -32,11 +38,11 @@ export class ScanningComponent implements OnInit {
       stepFrequency: [null, Validators.required],
     });
 
-    this._formGroup.valueChanges.pipe(
-      debounceTime(400),
-    ).subscribe(form => {
-      console.log(form);
-    });
+    // this._formGroup.valueChanges.pipe(
+    //   debounceTime(400),
+    // ).subscribe(form => {
+    //   console.log(form);
+    // });
   }
 
   ngOnInit(): void {
@@ -58,6 +64,31 @@ export class ScanningComponent implements OnInit {
       maxFrequency: null,
       stepFrequency: null,
     });
+  }
+
+  public onFillForm(): void {
+    this._formGroup.patchValue({
+      name: 'Test name',
+      minX: 100,
+      maxX: 200,
+      stepX: 1,
+      minY: 200,
+      maxY: 300,
+      stepY: 2,
+      minZ: 10,
+      maxZ: 30,
+      stepZ: 1,
+      minFrequency: 1,
+      maxFrequency: 20,
+      stepFrequency: 1,
+    });
+  }
+
+
+  public onSubmit(): void {
+    this._scanningService.scan();
+    this._scansService.addScan(this._formGroup.controls.name.value);
+    this.onDismiss();
   }
 
 }

@@ -1,1 +1,4 @@
-<p>scans works!</p>
+<app-scan-container
+  *ngFor="let scan of (_scansService.scans$ | async)"
+  [scan]="scan"
+></app-scan-container>
