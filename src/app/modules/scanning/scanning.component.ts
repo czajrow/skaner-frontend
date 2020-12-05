@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-scanning',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScanningComponent implements OnInit {
 
-  constructor() { }
+  public _formGroup: FormGroup;
+
+  constructor(
+    private readonly _formBuilder: FormBuilder,
+  ) {
+    this._formGroup = this._formBuilder.group({
+      name: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
   }
