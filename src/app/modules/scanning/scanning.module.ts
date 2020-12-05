@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ScanningComponent } from './scanning.component';
 import { SectionModule } from '../../shared/section/section.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputModule } from '../../shared/input/input.module';
 
 
 
@@ -11,10 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     exports: [
         ScanningComponent
     ],
-    imports: [
-        CommonModule,
-        SectionModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    SectionModule,
+    ReactiveFormsModule,
+    InputModule
+  ]
 })
 export class ScanningModule { }

@@ -1,0 +1,26 @@
+<div class="form-group">
+  <label
+    *ngIf="!!label"
+    for="inputId"
+  >
+    {{ label }}
+  </label>
+  <input
+    [value]="_value"
+    [type]="type"
+    [placeholder]="placeholder || ''"
+    [min]="min"
+    [max]="max"
+    [step]="step"
+    class="form-control"
+    id="inputId"
+    aria-describedby="inputHelp"
+  >
+  <small
+    *ngIf="help"
+    id="inputHelp"
+    class="form-text text-muted"
+  >
+    {{ help }}
+  </small>
+</div>

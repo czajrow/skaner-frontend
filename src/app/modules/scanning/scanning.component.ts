@@ -15,6 +15,7 @@ export class ScanningComponent implements OnInit {
   ) {
     this._formGroup = this._formBuilder.group({
       name: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 

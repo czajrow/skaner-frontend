@@ -4,9 +4,25 @@
   </div>
   <div app-section-content-slot>
     <form [formGroup]="_formGroup">
+      <div class="app-scanning__form-row">
+        <app-input
+          label="Name:"
+          placeholder="Input some text"
+          formControlName="name"
+          type="text"
+          help="This is input to insert nam eof the scan."
+          class="mr-2"
+        ></app-input>
+        <app-input
+          label="Description:"
+          placeholder="Input some text"
+          formControlName="name"
+          type="text"
+          help="This is input to insert nam eof the scan."
+          class="ml-2"
+        ></app-input>
 
-
-
+      </div>
     </form>
   </div>
 </app-section>
