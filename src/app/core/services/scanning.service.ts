@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { StatusOfConnection, StatusService } from './status.service';
 
@@ -14,15 +14,15 @@ export enum ScanningStatus {
 @Injectable({
   providedIn: 'root'
 })
-export class ScanningService {
+export class ScanningService implements OnDestroy {
 
-  private sub: Subscription;
+  private _sub: Subscription;
 
-  private readonly statusSubject: BehaviorSubject<ScanningStatus> = new BehaviorSubject<ScanningStatus>(ScanningStatus.NotConnected);
-  public readonly status$: Observable<ScanningStatus> = this.statusSubject.asObservable();
+  private readonly _statusSubject: BehaviorSubject<ScanningStatus> = new BehaviorSubject<ScanningStatus>(ScanningStatus.NotConnected);
+  public readonly status$: Observable<ScanningStatus> = this._statusSubject.asObservable();
 
-  private readonly progressSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0.0);
-  public readonly progress$: Observable<number> = this.progressSubject.asObservable();
+  private readonly _progressSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0.0);
+  public readonly progress$: Observable<number> = this._progressSubject.asObservable();
 
   constructor(
     private readonly _statusService: StatusService,
@@ -32,25 +32,34 @@ export class ScanningService {
   public scan(): void {
     this._statusService.setStatus(StatusOfConnection.Scanning);
 
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this._sub) {
+      this._sub.unsubscribe();
     }
-    this.sub = new Subscription();
+    this._sub = new Subscription();
 
-    this.sub.add(interval(200).subscribe(count => {
+    this._sub.add(interval(120).subscribe(count => {
       if (count > 100) {
-        this._statusService.setStatus(StatusOfConnection.Connected);
-        this.sub.unsubscribe();
-        this.statusSubject.next(ScanningStatus.Done);
+        this.afterScan();
       } else if (count > 90) {
-        this.statusSubject.next(ScanningStatus.Cancelling);
+        this._statusSubject.next(ScanningStatus.Cancelling);
       } else if (count > 80) {
-        this.statusSubject.next(ScanningStatus.Postprocessing);
+        this._statusSubject.next(ScanningStatus.Postprocessing);
       } else if (count > 3) {
-        this.statusSubject.next(ScanningStatus.Scanning);
+        this._statusSubject.next(ScanningStatus.Scanning);
       }
-      this.progressSubject.next(count / 100.0 > 1.0 ? 1.0 : count / 100.0);
+      this._progressSubject.next(count / 100.0 > 1.0 ? 1.0 : count / 100.0);
     }));
+  }
+
+  ngOnDestroy(): void {
+    this._sub?.unsubscribe();
+  }
+
+  private afterScan(): void {
+    this._statusService.setStatus(StatusOfConnection.Connected);
+    this._sub.unsubscribe();
+    this._statusSubject.next(ScanningStatus.Done);
+    this._progressSubject.next(0.0);
   }
 
 }
