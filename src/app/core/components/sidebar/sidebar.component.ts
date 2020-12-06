@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import { StatusOfConnection, StatusService } from '@/core/services/status.service';
+import { Observable } from 'rxjs';
 
 interface SidebarItem {
   title: string;
@@ -13,20 +15,26 @@ interface SidebarItem {
 })
 export class SidebarComponent implements OnInit {
 
+  public _statusOfConnection = StatusOfConnection;
+  public _status: Observable<StatusOfConnection>;
+
   readonly items: SidebarItem[] = [
     {
-      title: 'Home',
-      link: '/home',
-      icon: 'home',
+      title: 'Scans',
+      link: '/scans',
+      icon: 'scans',
     },
     {
-      title: 'Settings',
-      link: '/settings',
-      icon: 'settings'
+      title: 'Scanning',
+      link: '/scanning',
+      icon: 'scanning',
     },
   ];
 
-  constructor() {
+  constructor(
+    public readonly _statusService: StatusService,
+  ) {
+    this._status = _statusService.status$;
   }
 
   ngOnInit(): void {

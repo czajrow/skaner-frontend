@@ -63,4 +63,25 @@
     margin-left: 2 * $mainsize;
     color: rebeccapurple;
   }
+
+  &__status {
+    width: 2em;
+    height: 2em;
+    border-radius: 25%;
+    border: 0.25em solid white;
+    transition-duration: 1s;
+    background-color: gray;
+
+    &__connected {
+      background-color: green;
+    }
+
+    &__scanning {
+      background-color: orange;
+    }
+
+    &__offline {
+      background-color: red;
+    }
+  }
 }
