@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
-import { ScanningService } from '../../core/services/scanning.service';
-import { ScansService } from '../../core/services/scans.service';
+import { ScanningService } from '@/core/services/scanning.service';
+import { ScansService } from '@/core/services/scans.service';
 import { StatusOfConnection, StatusService } from '../../core/services/status.service';
-import { ParametersService } from '../../api/parameters.service';
+import { TestApiService } from '../../core/api/test-api.service';
 
 @Component({
   selector: 'app-scanning',
@@ -22,7 +21,7 @@ export class ScanningComponent implements OnInit {
     private readonly _formBuilder: FormBuilder,
     private readonly _scansService: ScansService,
     private readonly _scanningService: ScanningService,
-    private readonly _parametersService: ParametersService,
+    private readonly _testApiService: TestApiService,
   ) {
     this._formGroup = this._formBuilder.group({
       name: [null, Validators.required],
@@ -45,7 +44,7 @@ export class ScanningComponent implements OnInit {
   }
 
   public onDismiss(): void {
-    this._parametersService.getProbe();
+    this._testApiService.test();
     this._formGroup.patchValue({
       name: null,
       minX: null,
